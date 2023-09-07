@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useUserdataQuery,useUserpostQuery } from './Features/reduce'
 
-function App() {
+const App = () => {
+  
+  const {data:userdata} = useUserdataQuery()
+
+  const {data:userdataid} = useUserpostQuery(1)
+
+   console.log('data',userdata)
+
+   console.log('dataid',userdataid)
+
+  if (!userdata) {
+    return <div>Loading...</div>; // Display a loading message or spinner
+  }
+
+
+   
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+       {
+         userdata.map((item,index)=>{
+            return(<div>
+              <ul key = {index}>
+                  <li>{item.name}</li>
+              </ul>
+              </div>)
+         })
+       }
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
